@@ -15,3 +15,7 @@
 *.exe
 *.out
 *.app
+
+# autoconf generated content
+
+*.in
