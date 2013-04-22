@@ -1,2 +1,2 @@
-lib_LIBRARIES = libkiubrick.a
-libkiubrick_a_SOURCES = octree.c
+lib_LTLIBRARIES = libkiubrick.la
+libkiubrick_la_SOURCES = octree.c
