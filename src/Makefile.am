@@ -1,2 +1,2 @@
-bin_PROGRAMS = kiubrick
-kiubrick_SOURCES = octree.c
+lib_LTLIBRARIES = libkiubrick.la
+libkiubrick_la_SOURCES = octree.c

@@ -4,7 +4,7 @@ KiuBrick
 Build Status
 ------------
 
-master branch: [![Build Status](https://travis-ci.org/HaMster21/KiuBrick.png?branch=master)](https://travis-ci.org/HaMster21/KiuBrick)
+master branch: [![Build Status](https://travis-ci.org/textquell/KiuBrick.png?branch=master)](https://travis-ci.org/textquell/KiuBrick)
 
 About
 -----
