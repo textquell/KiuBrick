@@ -1,12 +1,10 @@
 KiuBrick
 ========
 
-Build Status
-------------
-
-master branch: [![Build Status](https://travis-ci.org/textquell/KiuBrick.png?branch=master)](https://travis-ci.org/textquell/KiuBrick)
-
 About
 -----
+A sparse voxel octree implementation in C#. It provides a tool assembly that can be used to manipulate octrees with arbitrary leaf data.
 
-A sparse voxel octree implementation
+Contributing
+------------
+Please refer to the Contribution section in the wiki when getting involved to this.
