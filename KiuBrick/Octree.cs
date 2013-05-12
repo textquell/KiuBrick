@@ -6,14 +6,14 @@
 
 #endregion
 
-namespace Textquell.KiuBrick
+namespace Textquell.KiuBrick.Octree
 {
     using System;
 
     /// <summary>
     /// An octree class to store data in
     /// </summary>
-    public class Octree
+    public class Octree<T>
     {
     }
 }
