@@ -1,4 +1,0 @@
-language: c
-compiler: gcc
-before_script: mkdir m4 && autoreconf --install || exit 1
-script: ./configure && make
