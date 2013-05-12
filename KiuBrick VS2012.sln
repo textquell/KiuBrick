@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KiuBrick", "KiuBrick\KiuBrick.csproj", "{A8C12FF8-2FCF-4510-A098-DE8186B4E0EF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "libOctree", "libKiuBrick\libOctree.csproj", "{A8C12FF8-2FCF-4510-A098-DE8186B4E0EF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
