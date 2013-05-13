@@ -35,10 +35,22 @@ namespace Textquell.KiuBrick.Octrees
     /// <summary>
     /// A generic octree class to store data in
     /// </summary>
-    public class Octree<T>
+    [Serializable]
+    public class Octree<T>: IDisposable
     {
-        public class VoxelNode
+        /// <summary>
+        /// stores a pointer to the root element of the Octree
+        /// </summary>
+        Node _root;
+
+        public Octree()
         {
+            _root = new Node();
+        }
+
+        public class Node: IDisposable
+        {
+            #region private Data fields
             /// <summary>
             /// valid mask tells whether each of the child slots actually contains a voxel
             /// </summary>
@@ -51,12 +63,51 @@ namespace Textquell.KiuBrick.Octrees
             /// stores a pointer to the next child of the parent node, thus aligning the memory 
             /// sequentially
             /// </summary>
-            VoxelNode neighbor;
+            Node _neighbor;
             /// <summary>
-            /// keeps a pointer to the first child. Pointing downwards the tree allows for arbitrary root
-            /// nodes and insertion at the top of the tree
+            /// keeps a pointer to the first child. Pointing downwards the tree allows for arbitrar
+            /// y root nodes and insertion at the top of the tree
             /// </summary>
-            VoxelNode firstChild;
+            Node _firstChild;
+            #endregion
+
+            /// <summary>
+            /// returns the number of leafs that this node stores in the smallest type possible
+            /// </summary>
+            public int LeafCount
+            {
+                get
+                {
+                    /// found at http://graphics.stanford.edu/~seander/bithacks.html#CountBitsSetKernighan
+                    int v = (_validmask & _leafmask); // the bitfield that know where a leaf node exists
+                    int c; // c accumulates the total bits set in v
+                    for (c = 0; v > 0; c++)
+                    {
+                        v &= v - 1; // clear the least significant bit set
+                    }
+                    return c;
+                }
+            }
+
+            #region IDisposable Member
+
+            public void Dispose()
+            {
+                // TODO: go to every child and tell it to delete its data and children. Than delete
+                // your own data
+                throw new NotImplementedException();
+            }
+
+            #endregion
         }
+
+        #region IDisposable Member
+
+        public void Dispose()
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
     }
 }
