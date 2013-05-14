@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "libOctree", "libOctree\libOctree.csproj", "{4DF11FD0-DC6D-4685-B42F-1B60E94E66F0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Algorithm Tester", "Algorithm Tester\Algorithm Tester.csproj", "{D18FF1EB-6929-4366-AD9E-7EF192A6E7EA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{4DF11FD0-DC6D-4685-B42F-1B60E94E66F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4DF11FD0-DC6D-4685-B42F-1B60E94E66F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4DF11FD0-DC6D-4685-B42F-1B60E94E66F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D18FF1EB-6929-4366-AD9E-7EF192A6E7EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D18FF1EB-6929-4366-AD9E-7EF192A6E7EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D18FF1EB-6929-4366-AD9E-7EF192A6E7EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D18FF1EB-6929-4366-AD9E-7EF192A6E7EA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
