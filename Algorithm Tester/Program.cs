@@ -9,8 +9,10 @@ namespace Algorithm_Tester
             if ( args.Length == 0 ) { Console.WriteLine( "You need to provide an argument" ); }
             else
             {
+                System.Diagnostics.Stopwatch _stopwatch = new System.Diagnostics.Stopwatch();
                 switch ( (string)args.GetValue( 0 ) )
                 {
+
                     case "-help":
                         Console.WriteLine( "provide the name of the algorithm you want to test and feed it with arguments." );
                         Console.WriteLine();
@@ -18,7 +20,6 @@ namespace Algorithm_Tester
                         Console.WriteLine( "-bitcount integer; which will tell you how many set bits the bitmask of the integer number contains." );
                         break;
                     case "-bitcount":
-                        System.Diagnostics.Stopwatch _stopwatch = new System.Diagnostics.Stopwatch();
                         int v = Convert.ToInt32( args.GetValue( 1 ) );
                         int bitcount; // c accumulates the total bits set in v
                         _stopwatch.Start();
@@ -32,6 +33,32 @@ namespace Algorithm_Tester
                         Console.WriteLine( "The operation took {0:D} milliseconds.", _stopwatch.ElapsedMilliseconds );
                         Console.WriteLine( "The operation took {0:D} ticks.", _stopwatch.ElapsedTicks );
                         Console.WriteLine( "Stop watch IsHighPrecision:" + System.Diagnostics.Stopwatch.IsHighResolution );
+                        break;
+                    case "-bitposition":
+                        int leafposition = Convert.ToInt32( args.GetValue( 1 ) );
+                        int[] result = new int[8]; //is an empty array that is not crashing foreach loops
+                        int arrayPosition = 0;
+                        int iteration = 0;
+                        _stopwatch.Start();
+                        while ( leafposition > 0 )
+                        {
+                            iteration++;
+                            if ( (leafposition & 1) == 1 ) // LSB set?
+                            {
+                                result.SetValue( iteration, arrayPosition );
+                                arrayPosition++;
+                            };
+                            leafposition = leafposition >> 1;
+                        }
+                        _stopwatch.Stop();
+                        //Console.WriteLine( result.ToString() );
+                        Console.WriteLine();
+                        Console.WriteLine( "The operation took {0:D} milliseconds.", _stopwatch.ElapsedMilliseconds );
+                        Console.WriteLine( "The operation took {0:D} ticks.", _stopwatch.ElapsedTicks );
+                        Console.WriteLine( "Stop watch IsHighPrecision:" + System.Diagnostics.Stopwatch.IsHighResolution );
+                        break;
+                    default:
+                        Console.WriteLine( "Please specify a valid command" );
                         break;
                 }
             }

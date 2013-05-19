@@ -78,14 +78,35 @@ namespace Textquell.KiuBrick.Octrees
             {
                 get
                 {
-                    /// found at http://graphics.stanford.edu/~seander/bithacks.html#CountBitsSetKernighan
-                    int v = (_validmask & _leafmask); // the bitfield that know where a leaf node exists
-                    int c; // c accumulates the total bits set in v
-                    for (c = 0; v > 0; c++)
+                    // found at http://graphics.stanford.edu/~seander/bithacks.html#CountBitsSetKernighan
+                    int leafpositions = (_validmask & _leafmask); // the bitfield that know where a leaf node exists
+                    int count;
+                    for ( count = 0; leafpositions > 0; count++ )
                     {
-                        v &= v - 1; // clear the least significant bit set
+                        leafpositions &= leafpositions - 1; // clear the least significant bit set
                     }
-                    return c;
+                    return count;
+                }
+            }
+            public int[] LeafPositions
+            {
+                get
+                {
+                    int leafposition = _leafmask & _validmask;
+                    int[] result = new int[8]; //is an empty array that is not crashing foreach loops
+                    int arrayPosition = 0;
+                    int iteration = 0;
+                    while ( leafposition > 0 )
+                    {
+                        iteration++; //nodes are not zero-indexed ... ?
+                        if ( (leafposition & 1) == 1 ) // LSB set?
+                        {
+                            result.SetValue( iteration, arrayPosition );
+                            arrayPosition++;
+                        };
+                        leafposition = leafposition >> 1;
+                    }
+                    return result;
                 }
             }
 
