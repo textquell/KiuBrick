@@ -36,7 +36,7 @@ namespace Textquell.KiuBrick.Octrees
     /// A generic octree class to store data in
     /// </summary>
     [Serializable]
-    public class Octree<T> : IDisposable
+    public class Octree<T>: IDisposable
     {
         /// <summary>
         /// stores a pointer to the root element of the Octree
@@ -48,7 +48,7 @@ namespace Textquell.KiuBrick.Octrees
             _root = new Node();
         }
 
-        public class Node : IDisposable
+        public class Node: IDisposable
         {
             #region private Data fields
             /// <summary>
@@ -81,7 +81,7 @@ namespace Textquell.KiuBrick.Octrees
                     // found at http://graphics.stanford.edu/~seander/bithacks.html#CountBitsSetKernighan
                     int leafpositions = (_validmask & _leafmask); // the bitfield that know where a leaf node exists
                     int count;
-                    for (count = 0; leafpositions > 0; count++)
+                    for ( count = 0; leafpositions > 0; count++ )
                     {
                         leafpositions &= leafpositions - 1; // clear the least significant bit set
                     }
@@ -95,13 +95,50 @@ namespace Textquell.KiuBrick.Octrees
             {
                 get
                 {
-                    int leafposition = _leafmask & _validmask;
+                    int leafposition = _validmask & _leafmask;
                     int[] result = new int[LeafCount];
                     int arrayPosition = 0;
 
-                    for (int i = 0; i < LeafCount; i++)
+                    for ( int i = 0; i < LeafCount; i++ )
                     {
-                        if ((leafposition & (1 << i)) != 0)
+                        if ( (leafposition & (1 << i)) != 0 )
+                        {
+                            result[arrayPosition++] = i;
+                        }
+                    }
+                    return result;
+                }
+            }
+            /// <summary>
+            /// finds out how many non-leaf children this node has
+            /// </summary>
+            public int BranchCount
+            {
+                get
+                {
+                    int branchpositions = (_validmask & ~(_leafmask));
+                    int count;
+                    for ( count = 0; branchpositions > 0; count++ )
+                    {
+                        branchpositions &= branchpositions - 1; // clear the least significant bit set
+                    }
+                    return count;
+                }
+            }
+            /// <summary>
+            /// finds out where non-leaf children are
+            /// </summary>
+            public int[] BranchPositions
+            {
+                get
+                {
+                    int branchposition = _validmask & _leafmask;
+                    int[] result = new int[BranchCount];
+                    int arrayPosition = 0;
+
+                    for ( int i = 0; i < BranchCount; i++ )
+                    {
+                        if ( (branchposition & (1 << i)) != 0 )
                         {
                             result[arrayPosition++] = i;
                         }
