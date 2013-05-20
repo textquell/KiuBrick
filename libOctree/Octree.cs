@@ -36,7 +36,7 @@ namespace Textquell.KiuBrick.Octrees
     /// A generic octree class to store data in
     /// </summary>
     [Serializable]
-    public class Octree<T>: IDisposable
+    public class Octree<T> : IDisposable
     {
         /// <summary>
         /// stores a pointer to the root element of the Octree
@@ -48,7 +48,7 @@ namespace Textquell.KiuBrick.Octrees
             _root = new Node();
         }
 
-        public class Node: IDisposable
+        public class Node : IDisposable
         {
             #region private Data fields
             /// <summary>
@@ -81,30 +81,30 @@ namespace Textquell.KiuBrick.Octrees
                     // found at http://graphics.stanford.edu/~seander/bithacks.html#CountBitsSetKernighan
                     int leafpositions = (_validmask & _leafmask); // the bitfield that know where a leaf node exists
                     int count;
-                    for ( count = 0; leafpositions > 0; count++ )
+                    for (count = 0; leafpositions > 0; count++)
                     {
                         leafpositions &= leafpositions - 1; // clear the least significant bit set
                     }
                     return count;
                 }
             }
+            /// <summary>
+            /// Gets an array of int that contains position numbers of leafs. The values range is from 0-7
+            /// </summary>
             public int[] LeafPositions
             {
                 get
                 {
                     int leafposition = _leafmask & _validmask;
-                    int[] result = new int[8]; //is an empty array that is not crashing foreach loops
+                    int[] result = new int[LeafCount];
                     int arrayPosition = 0;
-                    int iteration = 0;
-                    while ( leafposition > 0 )
+
+                    for (int i = 0; i < LeafCount; i++)
                     {
-                        iteration++; //nodes are not zero-indexed ... ?
-                        if ( (leafposition & 1) == 1 ) // LSB set?
+                        if ((leafposition & (1 << i)) != 0)
                         {
-                            result.SetValue( iteration, arrayPosition );
-                            arrayPosition++;
-                        };
-                        leafposition = leafposition >> 1;
+                            result[arrayPosition++] = i;
+                        }
                     }
                     return result;
                 }

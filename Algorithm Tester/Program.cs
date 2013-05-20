@@ -36,19 +36,21 @@ namespace Algorithm_Tester
                         break;
                     case "-bitposition":
                         int leafposition = Convert.ToInt32( args.GetValue( 1 ) );
-                        int[] result = new int[8]; //is an empty array that is not crashing foreach loops
-                        int arrayPosition = 0;
-                        int iteration = 0;
+                        int leafposition_2 = leafposition;
+                        int LeafCount;
                         _stopwatch.Start();
-                        while ( leafposition > 0 )
+
+                        for ( LeafCount = 0; leafposition_2 > 0; LeafCount++ ) { leafposition_2 &= leafposition_2 - 1; };
+
+                        int[] result = new int[LeafCount];
+                        int arrayPosition = 0;
+
+                        for ( int i = 0; i < LeafCount; i++ )
                         {
-                            iteration++;
-                            if ( (leafposition & 1) == 1 ) // LSB set?
+                            if ( (leafposition & (1 << i)) != 0 )
                             {
-                                result.SetValue( iteration, arrayPosition );
-                                arrayPosition++;
-                            };
-                            leafposition = leafposition >> 1;
+                                result[arrayPosition++] = i;
+                            }
                         }
                         _stopwatch.Stop();
                         //Console.WriteLine( result.ToString() );
