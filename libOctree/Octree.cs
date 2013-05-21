@@ -200,7 +200,7 @@ namespace Textquell.KiuBrick.Octrees
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            _root.Dispose();
         }
 
         #endregion
