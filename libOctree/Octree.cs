@@ -89,7 +89,7 @@ namespace Textquell.KiuBrick.Octrees
             /// is storing the data for each leaf node. This array is empty when there is no leaf
             /// node attached.
             /// </summary>
-            T[] _data;
+            T[] _data; // TODO: Is a List<T> fast enough for this?
             #endregion
 
             #region public Properties
@@ -173,11 +173,17 @@ namespace Textquell.KiuBrick.Octrees
             #region Data Getter and Setter
             public Node getNodeAtPosition( int position )
             {
+                if ( position >= 8 || position <= -1 ) { throw new ArgumentException( "Position can only be between 0 and 7" ); }
+                if ( BranchCount == 0 ) { throw new Exception( "There are no child nodes" ); }
+                if ( (_validmask >> position) % 2 == 1 ) { } // Node exists because after shifting, every odd number indicates that the LSB is set
+
                 throw new NotImplementedException();
             }
 
             public void insertNodeAtPosition( Node node, int position )
             {
+                // TODO: Find out if the position is already occupied, if not, resize the _data 
+                // array and arrange elements so their order is the same as the _validmask expects
                 throw new NotImplementedException();
             }
 
