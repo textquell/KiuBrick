@@ -87,6 +87,7 @@ namespace Textquell.KiuBrick.Octrees
             Node _firstChild;
             #endregion
 
+            #region public Properties
             /// <summary>
             /// returns the number of leafs that this node stores in the smallest type possible
             /// </summary>
@@ -162,14 +163,29 @@ namespace Textquell.KiuBrick.Octrees
                     return result;
                 }
             }
+            #endregion
+
+            #region Data Getter and Setter
+            public Node getNodeAtPosition( int position )
+            {
+                throw new NotImplementedException();
+            }
+
+            public void insertNodeAtPosition( Node node, int position )
+            {
+                throw new NotImplementedException();
+            }
+
+            #endregion
 
             #region IDisposable Member
 
             public void Dispose()
             {
-                // TODO: go to every child and tell it to delete its data and children. Than delete
-                // your own data
-                throw new NotImplementedException();
+                foreach ( int position in BranchPositions )
+                {
+                    getNodeAtPosition( position ).Dispose();
+                }
             }
 
             #endregion
