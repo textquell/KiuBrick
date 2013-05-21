@@ -85,6 +85,11 @@ namespace Textquell.KiuBrick.Octrees
             /// y root nodes and insertion at the top of the tree
             /// </summary>
             Node _firstChild;
+            /// <summary>
+            /// is storing the data for each leaf node. This array is empty when there is no leaf
+            /// node attached.
+            /// </summary>
+            T[] _data;
             #endregion
 
             #region public Properties
