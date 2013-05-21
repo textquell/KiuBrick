@@ -48,6 +48,22 @@ namespace Textquell.KiuBrick.Octrees
             _root = new Node();
         }
 
+        /// <summary>
+        /// The node of an octree
+        /// </summary>
+        /// <remarks>
+        /// A node is a data structure that is using masks and pointers to make data accessible. 
+        /// It is storing tree information in two masks, the leaf mask and the valid mask. The 
+        /// valid mask is able to tell where the current node has children. The leaf mask is able 
+        /// to tell leaf nodes and branch nodes apart. They are 8 bit bitfields. Each bit position
+        /// is a child position in the tree. When a bit is set in the bitfield, a child exists. So
+        /// you have three situations to think of:
+        /// 1: valid mask is zero, which means there are no children of this node
+        /// 2: valid mask is non-zero but leaf mask is zero, which means that this node has no 
+        /// leafs but branches
+        /// 3: valid mask and leaf mask are both non-zero. At the position that both mask have a 
+        /// bit set at, a leaf node exists. Set positions of only the valid mask are still branches
+        /// </remarks>
         public class Node: IDisposable
         {
             #region private Data fields
