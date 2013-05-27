@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-    <project name="libKiuBrick" default="test" basedir=".">
-        <description>libKiuBrick is providing generic octrees for the .NET and Mono Frameworks</description>
+    <project name="libOctree" default="test" basedir=".">
+        <description>libOctree is providing generic octrees for the .NET and Mono Frameworks</description>
         
         <target name="clean" description="remove all built files">
             <delete file="${OutDir}/${project::get-name()}.dll" />
