@@ -66,6 +66,7 @@ namespace Textquell.KiuBrick.Octrees
         /// </remarks>
         public class Node: IDisposable
         {
+            // TODO: Think about multi-threading, most likely a node is accessible fron different threads. Maybe it should be made thread safe.
             #region private Data fields
             /// <summary>
             /// valid mask tells whether each of the child slots actually contains a voxel
