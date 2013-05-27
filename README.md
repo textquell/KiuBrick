@@ -1,10 +1,6 @@
 KiuBrick
 ========
 
-About
------
-A sparse voxel octree implementation in C#. It provides a tool assembly that can be used to manipulate octrees with arbitrary leaf data.
+A CLR implementation of a game engine. It is implementing grafics with sparse voxel octrees.
 
-Contributing
-------------
-Please refer to the Contribution section in the wiki when getting involved to this.
+This project tries to target all platforms that are supported by .NET and Mono. It also wants to make use of best practices in C# development while gathering ideas from research of "the big ones".
