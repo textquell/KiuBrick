@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-    <project name="libOctree" default="test" basedir=".">
-        <description>libOctree is providing generic octrees for the .NET and Mono Frameworks</description>
+    <project name="Graphics" default="test" basedir=".">
+        <description>Provides access to datastructures and rendering on graphics devices</description>
         
         <target name="clean" description="remove all built files">
             <delete file="${OutDir}/${project::get-name()}.dll" />
@@ -10,13 +10,20 @@
 
         <target name="build" description="compiles all projects">
             <echo message="Building ${project::get-name()}" />
-            <csc target="library" debug="${DebugBuild}" output="${OutDir}/${project::get-name()}.dll" doc="${OutDir}/${project::get-name()}-doc.xml">
+            <csc target="library" 
+                 debug="${DebugBuild}" 
+                 output="${OutDir}/${project::get-name()}/${project::get-name()}.dll" 
+                 doc="${OutDir}/${project::get-name()}-doc.xml" 
+                 warnaserror="${FailOnWarning}">
+
                 <sources failonempty="true">
                     <include name="**/*.cs" />
                 </sources>
+
                 <references>
                     <include name="System.dll" />
                 </references>
+
             </csc>
         </target>
 

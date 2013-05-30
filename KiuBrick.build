@@ -4,22 +4,27 @@
         
         <property name="DebugBuild" value="true" overwrite="false" />
         <property name="OutDir" value="${directory::get-current-directory()}/bin" />
+	<property name="FailOnWarning" value="false" overwrite="false" />
 
         <target name="clean" description="remove all built files">
-            <nant buildfile="libOctree/KiuBrick.Octrees.build" target="clean" />
+            <nant buildfile="graphics/KiuBrick.Graphics.build" target="clean" />
+            <nant buildfile="audio/KiuBrick.Audio.build" target="clean" />
             <delete dir="${OutDir}" />
         </target>
 
         <target name="build" description="compiles all projects">
             <echo message="Building to ${OutDir}" />
-            <nant buildfile="libOctree/KiuBrick.Octrees.build" target="build" />
+            <nant buildfile="graphics/KiuBrick.Graphics.build" target="build" />
+            <nant buildfile="audio/KiuBrick.Audio.build" target="build" />
         </target>
 
         <target name="test" description="runs available tests on the generated assemblies" depends="build">
-            <nant buildfile="libOctree/KiuBrick.Octrees.build" target="test" />
+            <nant buildfile="graphics/KiuBrick.Graphics.build" target="test" />
+            <nant buildfile="audio/KiuBrick.Audio.build" target="test" />
         </target>
 
         <target name="release" description="creates a release build of all projects" depends="test">
-            <nant buildfile="libOctree/KiuBrick.Octrees.build" target="release" />
+            <nant buildfile="graphics/KiuBrick.Graphics.build" target="release" />
+            <nant buildfile="audio/KiuBrick.Audio.build" target="release" />
         </target>
     </project>
