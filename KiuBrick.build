@@ -4,6 +4,7 @@
         
         <property name="DebugBuild" value="true" overwrite="false" />
         <property name="OutDir" value="${directory::get-current-directory()}/bin" />
+	<property name="FailOnWarning" value="false" overwrite="false" />
 
         <target name="clean" description="remove all built files">
             <nant buildfile="graphics/KiuBrick.Graphics.build" target="clean" />

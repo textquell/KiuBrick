@@ -10,13 +10,20 @@
 
         <target name="build" description="compiles all projects">
             <echo message="Building ${project::get-name()}" />
-            <csc target="library" debug="${DebugBuild}" output="${OutDir}/${project::get-name()}.dll" doc="${OutDir}/${project::get-name()}-doc.xml" warnaserror="true">
+            <csc target="library" 
+                 debug="${DebugBuild}" 
+                 output="${OutDir}/${project::get-name()}/${project::get-name()}.dll" 
+                 doc="${OutDir}/${project::get-name()}-doc.xml" 
+                 warnaserror="${FailOnWarning}">
+
                 <sources failonempty="true">
                     <include name="**/*.cs" />
                 </sources>
+
                 <references>
                     <include name="System.dll" />
                 </references>
+
             </csc>
         </target>
 
