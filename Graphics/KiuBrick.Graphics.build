@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-    <project name="libOctree" default="test" basedir=".">
+    <project name="Graphics" default="test" basedir=".">
         <description>libOctree is providing generic octrees for the .NET and Mono Frameworks</description>
         
         <target name="clean" description="remove all built files">

@@ -28,7 +28,7 @@ THE SOFTWARE.
 
 #endregion
 
-namespace Textquell.KiuBrick.Octrees
+namespace Textquell.KiuBrick.Graphics
 {
     using System;
 
@@ -41,11 +41,11 @@ namespace Textquell.KiuBrick.Octrees
         /// <summary>
         /// stores a pointer to the root element of the Octree
         /// </summary>
-        Node _root;
+        OctreeNode _root;
 
         public Octree()
         {
-            _root = new Node();
+            _root = new OctreeNode();
         }
 
         /// <summary>
@@ -64,7 +64,7 @@ namespace Textquell.KiuBrick.Octrees
         /// 3: valid mask and leaf mask are both non-zero. At the position that both mask have a 
         /// bit set at, a leaf node exists. Set positions of only the valid mask are still branches
         /// </remarks>
-        public class Node: IDisposable
+        public class OctreeNode: IDisposable
         {
             // TODO: Think about multi-threading, most likely a node is accessible fron different threads. Maybe it should be made thread safe.
             #region private Data fields
@@ -80,12 +80,12 @@ namespace Textquell.KiuBrick.Octrees
             /// stores a pointer to the next child of the parent node, thus aligning the memory 
             /// sequentially
             /// </summary>
-            Node _neighbor;
+            OctreeNode _neighbor;
             /// <summary>
             /// keeps a pointer to the first child. Pointing downwards the tree allows for arbitrar
             /// y root nodes and insertion at the top of the tree
             /// </summary>
-            Node _firstChild;
+            OctreeNode _firstChild;
             /// <summary>
             /// is storing the data for each leaf node. This array is empty when there is no leaf
             /// node attached.
@@ -172,16 +172,16 @@ namespace Textquell.KiuBrick.Octrees
             #endregion
 
             #region Data Getter and Setter
-            public Node getNodeAtPosition( int position )
+            public OctreeNode getNodeAtPosition( int position )
             {
                 if ( position >= 8 || position <= -1 ) { throw new ArgumentException( "Position can only be between 0 and 7" ); }
                 if ( BranchCount == 0 ) { throw new Exception( "There are no child nodes" ); }
-                if ( (_validmask >> position) % 2 == 1 ) { } // Node exists because after shifting, every odd number indicates that the LSB is set
+                if ( (_validmask >> position) % 2 == 1 ) { } // OctreeNode exists because after shifting, every odd number indicates that the LSB is set
 
                 throw new NotImplementedException();
             }
 
-            public void insertNodeAtPosition( Node node, int position )
+            public void insertNodeAtPosition( OctreeNode node, int position )
             {
                 // TODO: Find out if the position is already occupied, if not, resize the _data 
                 // array and arrange elements so their order is the same as the _validmask expects
