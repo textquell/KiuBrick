@@ -35,6 +35,9 @@ namespace Textquell.KiuBrick.Graphics
         /// </summary>
         OctreeNode _root;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public Octree()
         {
             _root = new OctreeNode();
@@ -63,26 +66,26 @@ namespace Textquell.KiuBrick.Graphics
             /// <summary>
             /// valid mask tells whether each of the child slots actually contains a voxel
             /// </summary>
-            byte _validmask;
+            byte _validmask = 0;
             /// <summary>
             /// leaf mask further speciﬁes whether each of these voxels is a leaf
             /// </summary>
-            byte _leafmask;
+            byte _leafmask = 0;
             /// <summary>
             /// stores a pointer to the next child of the parent node, thus aligning the memory 
             /// sequentially
             /// </summary>
-            OctreeNode _neighbor;
+            OctreeNode _neighbor = null;
             /// <summary>
             /// keeps a pointer to the first child. Pointing downwards the tree allows for arbitrar
             /// y root nodes and insertion at the top of the tree
             /// </summary>
-            OctreeNode _firstChild;
+            OctreeNode _firstChild = null;
             /// <summary>
             /// is storing the data for each leaf node. This array is empty when there is no leaf
             /// node attached.
             /// </summary>
-            T[] _data; // TODO: Is a List<T> fast enough for this?
+            T[] _data = null; // TODO: Is a List<T> fast enough for this?
             #endregion
 
             #region public Properties
@@ -164,6 +167,11 @@ namespace Textquell.KiuBrick.Graphics
             #endregion
 
             #region Data Getter and Setter
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="position"></param>
+            /// <returns></returns>
             public OctreeNode getNodeAtPosition( int position )
             {
                 if ( position >= 8 || position <= -1 ) { throw new ArgumentException( "Position can only be between 0 and 7" ); }
@@ -173,6 +181,11 @@ namespace Textquell.KiuBrick.Graphics
                 throw new NotImplementedException();
             }
 
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="node"></param>
+            /// <param name="position"></param>
             public void insertNodeAtPosition( OctreeNode node, int position )
             {
                 // TODO: Find out if the position is already occupied, if not, resize the _data 
@@ -183,7 +196,9 @@ namespace Textquell.KiuBrick.Graphics
             #endregion
 
             #region IDisposable Member
-
+            /// <summary>
+            /// 
+            /// </summary>
             public void Dispose()
             {
                 foreach ( int position in BranchPositions )
@@ -196,7 +211,9 @@ namespace Textquell.KiuBrick.Graphics
         }
 
         #region IDisposable Member
-
+        /// <summary>
+        /// 
+        /// </summary>
         public void Dispose()
         {
             _root.Dispose();

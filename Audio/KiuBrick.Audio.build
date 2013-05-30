@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-    <project name="Graphics" default="test" basedir=".">
-        <description>Provides access to datastructures and rendering on graphics devices</description>
+    <project name="Audio" default="test" basedir=".">
+        <description>Provides access to audio devices and handles their In-/Output</description>
         
         <target name="clean" description="remove all built files">
             <delete file="${OutDir}/${project::get-name()}.dll" />
