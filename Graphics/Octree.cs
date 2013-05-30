@@ -1,26 +1,18 @@
 ﻿#region License
 /*
-The MIT License (MIT)
+The KiuBrick game engine. 
+Copyright (C) 2013 Hans Meyer
 
-Copyright (c) 2013 Textquell
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU 
+General Public License as published by the Free Software Foundation, either version 3 of the 
+License, or (at your option) any later version.
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without 
+even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU 
+General Public License for more details.
 
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
+You should have received a copy of the GNU General Public License along with this program. If not, 
+see <http://www.gnu.org/licenses/>.
 */
 #endregion
 
@@ -28,7 +20,7 @@ THE SOFTWARE.
 
 #endregion
 
-namespace Textquell.KiuBrick.Octrees
+namespace Textquell.KiuBrick.Graphics
 {
     using System;
 
@@ -41,11 +33,14 @@ namespace Textquell.KiuBrick.Octrees
         /// <summary>
         /// stores a pointer to the root element of the Octree
         /// </summary>
-        Node _root;
+        OctreeNode _root;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public Octree()
         {
-            _root = new Node();
+            _root = new OctreeNode();
         }
 
         /// <summary>
@@ -64,33 +59,33 @@ namespace Textquell.KiuBrick.Octrees
         /// 3: valid mask and leaf mask are both non-zero. At the position that both mask have a 
         /// bit set at, a leaf node exists. Set positions of only the valid mask are still branches
         /// </remarks>
-        public class Node: IDisposable
+        public class OctreeNode: IDisposable
         {
             // TODO: Think about multi-threading, most likely a node is accessible fron different threads. Maybe it should be made thread safe.
             #region private Data fields
             /// <summary>
             /// valid mask tells whether each of the child slots actually contains a voxel
             /// </summary>
-            byte _validmask;
+            byte _validmask = 0;
             /// <summary>
             /// leaf mask further speciﬁes whether each of these voxels is a leaf
             /// </summary>
-            byte _leafmask;
+            byte _leafmask = 0;
             /// <summary>
             /// stores a pointer to the next child of the parent node, thus aligning the memory 
             /// sequentially
             /// </summary>
-            Node _neighbor;
+            OctreeNode _neighbor = null;
             /// <summary>
             /// keeps a pointer to the first child. Pointing downwards the tree allows for arbitrar
             /// y root nodes and insertion at the top of the tree
             /// </summary>
-            Node _firstChild;
+            OctreeNode _firstChild = null;
             /// <summary>
             /// is storing the data for each leaf node. This array is empty when there is no leaf
             /// node attached.
             /// </summary>
-            T[] _data; // TODO: Is a List<T> fast enough for this?
+            T[] _data = null; // TODO: Is a List<T> fast enough for this?
             #endregion
 
             #region public Properties
@@ -172,16 +167,26 @@ namespace Textquell.KiuBrick.Octrees
             #endregion
 
             #region Data Getter and Setter
-            public Node getNodeAtPosition( int position )
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="position"></param>
+            /// <returns></returns>
+            public OctreeNode getNodeAtPosition( int position )
             {
                 if ( position >= 8 || position <= -1 ) { throw new ArgumentException( "Position can only be between 0 and 7" ); }
                 if ( BranchCount == 0 ) { throw new Exception( "There are no child nodes" ); }
-                if ( (_validmask >> position) % 2 == 1 ) { } // Node exists because after shifting, every odd number indicates that the LSB is set
+                if ( (_validmask >> position) % 2 == 1 ) { } // OctreeNode exists because after shifting, every odd number indicates that the LSB is set
 
                 throw new NotImplementedException();
             }
 
-            public void insertNodeAtPosition( Node node, int position )
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="node"></param>
+            /// <param name="position"></param>
+            public void insertNodeAtPosition( OctreeNode node, int position )
             {
                 // TODO: Find out if the position is already occupied, if not, resize the _data 
                 // array and arrange elements so their order is the same as the _validmask expects
@@ -191,7 +196,9 @@ namespace Textquell.KiuBrick.Octrees
             #endregion
 
             #region IDisposable Member
-
+            /// <summary>
+            /// 
+            /// </summary>
             public void Dispose()
             {
                 foreach ( int position in BranchPositions )
@@ -204,7 +211,9 @@ namespace Textquell.KiuBrick.Octrees
         }
 
         #region IDisposable Member
-
+        /// <summary>
+        /// 
+        /// </summary>
         public void Dispose()
         {
             _root.Dispose();

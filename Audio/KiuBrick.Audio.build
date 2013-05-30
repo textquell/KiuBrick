@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+    <project name="Audio" default="test" basedir=".">
+        <description>Provides access to audio devices and handles their In-/Output</description>
+        
+        <target name="clean" description="remove all built files">
+            <delete file="${OutDir}/${project::get-name()}.dll" />
+            <delete file="${OutDir}/${project::get-name()}-doc.xml" />
+            <delete file="${OutDir}/${project::get-name()}.pdb" />
+        </target>
+
+        <target name="build" description="compiles all projects">
+            <echo message="Building ${project::get-name()}" />
+            <csc target="library" 
+                 debug="${DebugBuild}" 
+                 output="${OutDir}/${project::get-name()}/${project::get-name()}.dll" 
+                 doc="${OutDir}/${project::get-name()}-doc.xml" 
+                 warnaserror="${FailOnWarning}">
+
+                <sources failonempty="true">
+                    <include name="**/*.cs" />
+                </sources>
+
+                <references>
+                    <include name="System.dll" />
+                </references>
+
+            </csc>
+        </target>
+
+        <target name="test" description="runs available tests on the generated assemblies" depends="build">
+        </target>
+
+        <target name="release" description="creates a release build of all projects" depends="test">
+        </target>
+    </project>
